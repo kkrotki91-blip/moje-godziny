@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Moje Godziny"
+    >
+
+    <title>Moje Godziny</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- GÓRNY PASEK -->
+
+    <header class="top-bar">
+
+        <button id="prevMonth" class="month-button">
+            ‹
+        </button>
+
+        <h1 id="monthTitle">
+            Sierpień 2026
+        </h1>
+
+        <button id="nextMonth" class="month-button">
+            ›
+        </button>
+
+    </header>
+
+
+    <!-- KALENDARZ -->
+
+    <main>
+
+        <div class="weekdays">
+
+            <div>Pn</div>
+            <div>Wt</div>
+            <div>Śr</div>
+            <div>Cz</div>
+            <div>Pt</div>
+            <div>So</div>
+            <div>Nd</div>
+
+        </div>
+
+        <div
+            id="calendar"
+            class="calendar"
+        ></div>
+
+
+        <!-- PODSUMOWANIE -->
+
+        <section class="summary">
+
+            <div class="summary-row">
+
+                <span>Godziny</span>
+
+                <strong id="totalHours">
+                    0 h
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>Stawka</span>
+
+                <strong id="hourlyRate">
+                    0,00 zł/h
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row earnings">
+
+                <span>Zarobek</span>
+
+                <strong id="totalEarnings">
+                    0,00 zł
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- STAWKA -->
+
+        <button
+            id="rateButton"
+            class="rate-button"
+        >
+            Ustaw stawkę godzinową
+        </button>
+
+    </main>
+
+</div>
+
+
+
+<!-- ============================== -->
+<!-- OKNO EDYCJI DNIA -->
+<!-- ============================== -->
+
+<div
+    id="dayModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <h2 id="modalDate">
+                18 sierpnia
+            </h2>
+
+            <button
+                id="closeModal"
+                class="close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- GODZINY -->
+
+        <div class="hours-section">
+
+            <label for="hoursInput">
+                Ilość przepracowanych godzin
+            </label>
+
+            <div class="hours-input-wrapper">
+
+                <input
+                    id="hoursInput"
+                    type="number"
+                    min="0"
+                    step="0.5"
+                    placeholder="np. 8"
+                >
+
+                <span>h</span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RODZAJ DNIA -->
+
+        <div class="day-types">
+
+            <button
+                class="day-type vacation"
+                data-type="vacation"
+            >
+
+                <span class="type-icon">
+                    🏖️
+                </span>
+
+                <span class="type-text">
+
+                    <strong>Urlop</strong>
+
+                    <small>
+                        8 godzin
+                    </small>
+
+                </span>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="day-type blood"
+                data-type="blood"
+            >
+
+                <span class="type-icon">
+                    🩸
+                </span>
+
+                <span class="type-text">
+
+                    <strong>Oddanie krwi</strong>
+
+                    <small>
+                        8 godzin
+                    </small>
+
+                </span>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="day-type free"
+                data-type="free"
+            >
+
+                <span class="type-icon">
+                    💤
+                </span>
+
+                <span class="type-text">
+
+                    <strong>Wolne</strong>
+
+                    <small>
+                        0 godzin
+                    </small>
+
+                </span>
+
+                <span class="check">
+                    ✓
+                </span>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- PRZYCISKI -->
+
+        <div class="modal-buttons">
+
+            <button
+                id="deleteEntry"
+                class="delete-button"
+            >
+                Usuń wpis
+            </button>
+
+            <div class="right-buttons">
+
+                <button
+                    id="cancelModal"
+                    class="cancel-button"
+                >
+                    Anuluj
+                </button>
+
+                <button
+                    id="saveEntry"
+                    class="save-button"
+                >
+                    Zapisz
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
