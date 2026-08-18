@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -25,33 +27,52 @@
 
     <title>Moje Godziny</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
 <div class="app">
 
+
+    <!-- ================================= -->
     <!-- GÓRNY PASEK -->
+    <!-- ================================= -->
 
     <header class="top-bar">
 
-        <button id="prevMonth" class="month-button">
+        <button
+            id="prevMonth"
+            class="month-button"
+        >
             ‹
         </button>
+
 
         <h1 id="monthTitle">
             Sierpień 2026
         </h1>
 
-        <button id="nextMonth" class="month-button">
+
+        <button
+            id="nextMonth"
+            class="month-button"
+        >
             ›
         </button>
 
     </header>
 
 
+
+    <!-- ================================= -->
     <!-- KALENDARZ -->
+    <!-- ================================= -->
 
     <main>
 
@@ -67,19 +88,28 @@
 
         </div>
 
+
         <div
             id="calendar"
             class="calendar"
         ></div>
 
 
+
+        <!-- ================================= -->
         <!-- PODSUMOWANIE -->
+        <!-- ================================= -->
 
         <section class="summary">
 
+
+            <!-- GODZINY -->
+
             <div class="summary-row">
 
-                <span>Godziny</span>
+                <span>
+                    Godziny
+                </span>
 
                 <strong id="totalHours">
                     0 h
@@ -88,9 +118,14 @@
             </div>
 
 
+
+            <!-- STAWKA -->
+
             <div class="summary-row">
 
-                <span>Stawka</span>
+                <span>
+                    Stawka
+                </span>
 
                 <strong id="hourlyRate">
                     0,00 zł/h
@@ -99,9 +134,14 @@
             </div>
 
 
+
+            <!-- ZAROBEK -->
+
             <div class="summary-row earnings">
 
-                <span>Zarobek</span>
+                <span>
+                    Zarobek
+                </span>
 
                 <strong id="totalEarnings">
                     0,00 zł
@@ -112,7 +152,50 @@
         </section>
 
 
-        <!-- STAWKA -->
+
+        <!-- ================================= -->
+        <!-- PODSUMOWANIE URLOPU -->
+        <!-- ================================= -->
+
+        <section class="vacation-summary">
+
+
+            <!-- WYKORZYSTANY URLOP -->
+
+            <div class="summary-row">
+
+                <span>
+                    Urlop
+                </span>
+
+                <strong id="vacationUsed">
+                    0 / 26 dni
+                </strong>
+
+            </div>
+
+
+            <!-- POZOSTAŁY URLOP -->
+
+            <div class="summary-row vacation-remaining">
+
+                <span>
+                    Pozostało
+                </span>
+
+                <strong id="vacationRemaining">
+                    26 dni
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- USTAWIANIE STAWKI -->
+        <!-- ================================= -->
 
         <button
             id="rateButton"
@@ -121,29 +204,46 @@
             Ustaw stawkę godzinową
         </button>
 
+
+
+        <!-- ================================= -->
+        <!-- USTAWIANIE LIMITU URLOPU -->
+        <!-- ================================= -->
+
+        <button
+            id="vacationLimitButton"
+            class="rate-button vacation-limit-button"
+        >
+            Ustaw limit urlopu
+        </button>
+
     </main>
 
 </div>
 
 
 
-<!-- ============================== -->
+<!-- ================================= -->
 <!-- OKNO EDYCJI DNIA -->
-<!-- ============================== -->
+<!-- ================================= -->
 
 <div
     id="dayModal"
     class="modal hidden"
 >
 
+
     <div class="modal-content">
 
+
+        <!-- NAGŁÓWEK -->
 
         <div class="modal-header">
 
             <h2 id="modalDate">
                 18 sierpnia
             </h2>
+
 
             <button
                 id="closeModal"
@@ -156,13 +256,16 @@
 
 
 
+        <!-- ================================= -->
         <!-- GODZINY -->
+        <!-- ================================= -->
 
         <div class="hours-section">
 
             <label for="hoursInput">
                 Ilość przepracowanych godzin
             </label>
+
 
             <div class="hours-input-wrapper">
 
@@ -174,7 +277,10 @@
                     placeholder="np. 8"
                 >
 
-                <span>h</span>
+
+                <span>
+                    h
+                </span>
 
             </div>
 
@@ -182,9 +288,14 @@
 
 
 
+        <!-- ================================= -->
         <!-- RODZAJ DNIA -->
+        <!-- ================================= -->
 
         <div class="day-types">
+
+
+            <!-- URLOP -->
 
             <button
                 class="day-type vacation"
@@ -195,15 +306,19 @@
                     🏖️
                 </span>
 
+
                 <span class="type-text">
 
-                    <strong>Urlop</strong>
+                    <strong>
+                        Urlop
+                    </strong>
 
                     <small>
                         8 godzin
                     </small>
 
                 </span>
+
 
                 <span class="check">
                     ✓
@@ -212,6 +327,8 @@
             </button>
 
 
+
+            <!-- KREW -->
 
             <button
                 class="day-type blood"
@@ -222,15 +339,19 @@
                     🩸
                 </span>
 
+
                 <span class="type-text">
 
-                    <strong>Oddanie krwi</strong>
+                    <strong>
+                        Oddanie krwi
+                    </strong>
 
                     <small>
                         8 godzin
                     </small>
 
                 </span>
+
 
                 <span class="check">
                     ✓
@@ -239,6 +360,8 @@
             </button>
 
 
+
+            <!-- WOLNE -->
 
             <button
                 class="day-type free"
@@ -249,15 +372,19 @@
                     💤
                 </span>
 
+
                 <span class="type-text">
 
-                    <strong>Wolne</strong>
+                    <strong>
+                        Wolne
+                    </strong>
 
                     <small>
                         0 godzin
                     </small>
 
                 </span>
+
 
                 <span class="check">
                     ✓
@@ -269,9 +396,12 @@
 
 
 
+        <!-- ================================= -->
         <!-- PRZYCISKI -->
+        <!-- ================================= -->
 
         <div class="modal-buttons">
+
 
             <button
                 id="deleteEntry"
@@ -280,7 +410,9 @@
                 Usuń wpis
             </button>
 
+
             <div class="right-buttons">
+
 
                 <button
                     id="cancelModal"
@@ -288,6 +420,7 @@
                 >
                     Anuluj
                 </button>
+
 
                 <button
                     id="saveEntry"
@@ -307,24 +440,53 @@
 
 
 
+<!-- ================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================= -->
+
 <script src="app.js"></script>
 
+
+<!-- ================================= -->
+<!-- SERVICE WORKER — TRYB OFFLINE -->
+<!-- ================================= -->
+
 <script>
+
     if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker.register("./sw.js")
-                .then(() => {
-                    console.log("Tryb offline aktywny");
-                })
-                .catch(error => {
-                    console.error(
-                        "Błąd Service Workera:",
-                        error
-                    );
-                });
-        });
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker
+                    .register("./sw.js")
+
+                    .then(() => {
+
+                        console.log(
+                            "Tryb offline aktywny"
+                        );
+
+                    })
+
+                    .catch(error => {
+
+                        console.error(
+                            "Błąd Service Workera:",
+                            error
+                        );
+
+                    });
+
+            }
+        );
+
     }
+
 </script>
 
+
 </body>
+
 </html>
