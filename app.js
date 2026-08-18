@@ -21,6 +21,20 @@ const nextMonthButton =
 
 
 // =====================================
+// URLOP
+// =====================================
+
+const vacationUsedElement =
+    document.getElementById("vacationUsed");
+
+const vacationRemainingElement =
+    document.getElementById("vacationRemaining");
+
+const vacationLimitButton =
+    document.getElementById("vacationLimitButton");
+
+
+// =====================================
 // OKNO EDYCJI DNIA
 // =====================================
 
@@ -83,6 +97,25 @@ let hourlyRate = parseFloat(
     localStorage.getItem("hourlyRate") || "0"
 );
 
+
+// =====================================
+// LIMIT URLOPU
+// =====================================
+//
+// Domyślnie 26 dni.
+// Użytkownik może zmienić tę wartość.
+//
+
+let vacationLimit = parseInt(
+    localStorage.getItem("vacationLimit") || "26",
+    10
+);
+
+
+// =====================================
+// AKTUALNIE WYBRANY DZIEŃ
+// =====================================
+
 let selectedDateKey = null;
 
 let selectedType = "work";
@@ -103,6 +136,11 @@ function saveData() {
         "hourlyRate",
         hourlyRate
     );
+
+    localStorage.setItem(
+        "vacationLimit",
+        vacationLimit
+    );
 }
 
 
@@ -120,7 +158,7 @@ function formatNumber(number) {
 
 
 // =====================================
-// IDENTYFIKATOR DATY
+// KLUCZ DATY
 // =====================================
 
 function getDateKey(year, month, day) {
@@ -173,7 +211,7 @@ function renderCalendar() {
 
 
     // =================================
-    // PUSTE POLA PRZED 1 DNIEM
+    // PUSTE POLA PRZED PIERWSZYM DNIEM
     // =================================
 
     for (
@@ -185,7 +223,8 @@ function renderCalendar() {
         const emptyDay =
             document.createElement("div");
 
-        emptyDay.className = "day";
+        emptyDay.className =
+            "day";
 
         emptyDay.style.visibility =
             "hidden";
@@ -217,10 +256,14 @@ function renderCalendar() {
         const dayElement =
             document.createElement("div");
 
-        dayElement.className = "day";
+        dayElement.className =
+            "day";
 
 
-        // Numer dnia
+        // =================================
+        // NUMER DNIA
+        // =================================
+
         const numberElement =
             document.createElement("div");
 
@@ -279,7 +322,7 @@ function renderCalendar() {
                 entry.type === "work"
             ) {
 
-                // Tylko liczba godzin — bez "h"
+                // Tylko liczba — bez "h"
                 hoursElement.textContent =
                     formatNumber(entry.hours);
 
@@ -588,9 +631,9 @@ dayTypeButtons.forEach(
 // KLIKNIĘCIE POLA GODZIN
 // =====================================
 //
-// Kliknięcie pola po wybraniu
-// Urlop / Krew / Wolne automatycznie
-// wraca do zwykłej pracy.
+// Jeśli przez pomyłkę wybraliśmy
+// Urlop / Krew / Wolne,
+// kliknięcie pola wraca do pracy.
 //
 
 hoursInput.addEventListener(
@@ -616,10 +659,6 @@ hoursInput.addEventListener(
 // =====================================
 // WPISYWANIE GODZIN
 // =====================================
-//
-// Rozpoczęcie wpisywania liczby
-// również przełącza dzień na pracę.
-//
 
 hoursInput.addEventListener(
     "input",
@@ -858,6 +897,69 @@ dayModal.addEventListener(
 
 
 // =====================================
+// LICZENIE URLOPU W CAŁYM ROKU
+// =====================================
+
+function getVacationUsedForYear(year) {
+
+    let vacationUsed = 0;
+
+    const yearPrefix = `${year}-`;
+
+    Object.keys(workData).forEach(dateKey => {
+
+        // Sprawdzamy, czy wpis należy do wybranego roku
+        if (!dateKey.startsWith(yearPrefix)) {
+            return;
+        }
+
+        const entry = workData[dateKey];
+
+        // Każdy dzień oznaczony jako Urlop = 1 dzień urlopu
+        if (
+            entry &&
+            entry.type === "vacation"
+        ) {
+            vacationUsed++;
+        }
+    });
+
+    return vacationUsed;
+}
+
+
+// =====================================
+// AKTUALIZACJA LICZNIKA URLOPU
+// =====================================
+
+function updateVacationSummary() {
+
+    const year =
+        currentDate.getFullYear();
+
+
+    const vacationUsed =
+        getVacationUsedForYear(year);
+
+
+    const vacationRemaining =
+        Math.max(
+            vacationLimit -
+            vacationUsed,
+            0
+        );
+
+
+    vacationUsedElement.textContent =
+        `${vacationUsed} / ${vacationLimit} dni`;
+
+
+    vacationRemainingElement.textContent =
+        `${vacationRemaining} dni`;
+}
+
+
+// =====================================
 // PODSUMOWANIE MIESIĄCA
 // =====================================
 
@@ -921,11 +1023,16 @@ function updateSummary() {
 
     totalEarningsElement.textContent =
         `${formatNumber(earnings)} zł`;
+
+
+    // Licznik urlopu działa niezależnie
+    // od aktualnie wyświetlanego miesiąca
+    updateVacationSummary();
 }
 
 
 // =====================================
-// USTAWIANIE STAWKI
+// USTAWIANIE STAWKI GODZINOWEJ
 // =====================================
 
 rateButton.addEventListener(
@@ -973,6 +1080,60 @@ rateButton.addEventListener(
         saveData();
 
         updateSummary();
+    }
+);
+
+
+// =====================================
+// USTAWIANIE LIMITU URLOPU
+// =====================================
+
+vacationLimitButton.addEventListener(
+    "click",
+    () => {
+
+        const input =
+            prompt(
+                "Ile dni urlopu masz w roku?",
+                vacationLimit
+            );
+
+
+        if (
+            input === null
+        ) {
+
+            return;
+        }
+
+
+        const value =
+            parseInt(
+                input,
+                10
+            );
+
+
+        if (
+            isNaN(value) ||
+            value < 0
+        ) {
+
+            alert(
+                "Wpisz poprawną liczbę dni."
+            );
+
+            return;
+        }
+
+
+        vacationLimit =
+            value;
+
+
+        saveData();
+
+        updateVacationSummary();
     }
 );
 
